@@ -6,7 +6,7 @@ import { formatSeconds} from '@/utils/timeFormatter';
 
 export const useTimerStore = defineStore('timer', () => {
   // --- STATE ---
-  const seconds = ref<number>(0);
+  const seconds = ref<number>(1500);
   const isRunning = ref<boolean>(false);
   const isPaused = ref<boolean>(false);
   let timerInterval: number | null = null;

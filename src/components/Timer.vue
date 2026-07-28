@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { PlayCircle, SquareCheck } from '@lucide/vue';
+import { useTimerStore } from '@/stores/timer';
+
+const timer = useTimerStore()
 </script>
 
 <template>
@@ -12,7 +15,7 @@ import { PlayCircle, SquareCheck } from '@lucide/vue';
             <button>Long Break</button>
         </div>
 
-        <span class="text-frosted text-timer-center">25:09</span>
+        <span class="text-frosted text-timer-center">{{ timer.formattedTime }}</span>
 
         <div class="flex gap-timer-man-gap items-center *:flex *:items-center *:text-center *:gap-timer-man-button-gap *:bg-surface-100 *:text-text-muted *:px-timer-man-px *:py-timer-man-py *:rounded-xl *:text-timer-man">
             <button>
