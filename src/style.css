@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+@theme {
+    --color-frosted: var(--color-green-500);
+
+    --color-surface-100: #ffffff;
+    /* Pure foreground: bright white cards, inputs, menus */
+    --color-surface-200: #f8fafc;
+    /* Very subtle white/gray: for table lines or secondary elements */
+    --color-surface-300: #f1f5f9;
+    /* Light structuring gray: for large background containers */
+    --color-surface-400: #e2e8f0;
+    /* Page background and borders: gives solid grounding and separates blocks */
+
+    /* Bright text */
+    --color-text-main: #0f172a;
+    /* Very dark slate, almost black */
+    --color-text-muted: #475569;
+    /* Medium gray for labels and subtitles */
+
+    --container-fluid-card-width : clamp(18.75rem,13.194rem + 27.778vw,37.5rem);
+    /*The fluid  width of every component*/
+
+    --text-value-nav : clamp(0.625rem,0.532rem + 0.463vw,0.9375rem);
+    /*the value  of  the size of each element inside the navbar (texts and icons)*/
+
+}
