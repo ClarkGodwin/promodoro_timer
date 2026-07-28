@@ -18,8 +18,11 @@
     --color-text-muted: #475569;
     /* Medium gray for labels and subtitles */
 
-    --container-fluid-card-width : clamp(18.75rem,13.194rem + 27.778vw,37.5rem);
-    /*The fluid  width of every component*/
+    --width-timer : clamp(18.75rem,9.491rem + 46.296vw,50rem);
+    /*The fluid  width of timer*/
+
+    --height-timer : clamp(21.875rem,20.023rem + 9.259vw,28.125rem);
+    /*The fluid  height of timer*/
 
     --container-header : clamp(18.75rem,13.194rem + 27.778vw,37.5rem);
     /*The width of the  header*/
@@ -29,5 +32,8 @@
 
     --text-header : clamp(1rem,0.741rem + 1.296vw,1.875rem);
     /*The size's value of the elements  of the  header*/
+
+    --text-timer-man : 8px;
+    /*size of the elements in the div containing  pause, resume and stop*/
 
 }
