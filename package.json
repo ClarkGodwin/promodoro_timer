@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@lucide/vue": "^1.27.0",
     "@tailwindcss/vite": "^4.3.3",
     "pinia": "^4.0.2",
     "tailwindcss": "^4.3.3",

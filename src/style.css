@@ -21,7 +21,13 @@
     --container-fluid-card-width : clamp(18.75rem,13.194rem + 27.778vw,37.5rem);
     /*The fluid  width of every component*/
 
+    --container-header : clamp(18.75rem,13.194rem + 27.778vw,37.5rem);
+    /*The width of the  header*/
+
     --text-value-nav : clamp(0.625rem,0.532rem + 0.463vw,0.9375rem);
     /*the value  of  the size of each element inside the navbar (texts and icons)*/
+
+    --text-header : clamp(1rem,0.741rem + 1.296vw,1.875rem);
+    /*The size's value of the elements  of the  header*/
 
 }
