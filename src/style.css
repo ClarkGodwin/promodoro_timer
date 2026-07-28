@@ -65,7 +65,7 @@
     --text-session :  clamp(0.6875rem,0.558rem + 0.648vw,1.125rem) ;
     /*size for the session's buttions*/
 
-    --text-timer-center : clamp(6.5625rem,4.803rem + 8.796vw,12.5rem) ;
+    --text-timer-center : clamp(4.375rem,2.338rem + 10.185vw,11.25rem) ;
     /*size of the text at the center of the time, a.k.a the big one*/
 
     --text-timer-man : clamp(0.5rem,0.389rem + 0.556vw,0.875rem) ;

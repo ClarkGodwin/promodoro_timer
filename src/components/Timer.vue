@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PauseCircle, PlayCircle, Square } from '@lucide/vue';
+import { PlayCircle, SquareCheck } from '@lucide/vue';
 </script>
 
 <template>
@@ -16,16 +16,12 @@ import { PauseCircle, PlayCircle, Square } from '@lucide/vue';
 
         <div class="flex gap-timer-man-gap items-center *:flex *:items-center *:text-center *:gap-timer-man-button-gap *:bg-surface-100 *:text-text-muted *:px-timer-man-px *:py-timer-man-py *:rounded-xl *:text-timer-man">
             <button>
-                <PauseCircle class=" size-(--text-timer-man)"/>
-                <span>Pause</span>
-            </button>
-            <button>
                 <PlayCircle class=" size-(--text-timer-man)"/>
-                <span>Resume</span>
+                <span>Start</span>
             </button>
             <button>
-                <Square class=" size-(--text-timer-man)"/>
-                <span>Stop</span>
+                <SquareCheck class=" size-(--text-timer-man)"/>
+                <span>Done</span>
             </button>
         </div>
     </div>
