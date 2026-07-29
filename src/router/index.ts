@@ -1,11 +1,10 @@
-import Timer from '@/components/Timer.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   { 
     path: '/', 
     name: 'home',
-    component: () => Timer
+    component: () => import('@/components/Timer.vue')
   },
 ];
 

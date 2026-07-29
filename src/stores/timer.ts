@@ -24,7 +24,7 @@ export const useTimerStore = defineStore('timer', () => {
     isPaused.value = false;
 
     timerInterval = window.setInterval(() => {
-      seconds.value++;
+      seconds.value--
     }, 1000);
   }
 
@@ -45,6 +45,13 @@ export const useTimerStore = defineStore('timer', () => {
     }
   }
 
+  function done() : void {
+    if (timerInterval !== null) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }
+
   return {
     seconds,
     isRunning,
@@ -53,5 +60,6 @@ export const useTimerStore = defineStore('timer', () => {
     start,
     pause,
     resume,
+    done,
   };
 });
