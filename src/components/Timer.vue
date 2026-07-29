@@ -28,7 +28,7 @@ const timer = useTimerStore()
 
         <span class="text-frosted text-timer-center">{{ timer.formattedTime }}</span>
 
-        <div class="flex gap-timer-man-gap items-center *:flex *:items-center *:text-center *:gap-timer-man-button-gap *:bg-surface-100 *:text-text-muted *:hover:text-frosted *:hover:cursor-pointer *:px-timer-man-px *:py-timer-man-py *:rounded-xl *:text-timer-man">
+        <div class="flex gap-timer-man-gap items-center *:flex *:items-center *:text-center *:gap-timer-man-button-gap *:bg-surface-100 *:text-text-muted *:enabled:hover:text-frosted *:enabled:hover:cursor-pointer *:px-timer-man-px *:py-timer-man-py *:rounded-xl *:text-timer-man">
 
             <!-- is displayed only at the beginning and never after unless you refresh the page -->
             <button @click="timer.start()" v-if="timer.isStarting">
@@ -48,7 +48,7 @@ const timer = useTimerStore()
                 <span>Resume</span>
             </button>
 
-            <button @click="timer.done()">
+            <button @click="timer.done()" :disabled="timer.isPaused || timer.isStarting" class="disabled:cursor-not-allowed">
                 <SquareCheck class=" size-(--text-timer-man)"/>
                 <span>Done</span>
             </button>
