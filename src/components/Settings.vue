@@ -4,8 +4,8 @@ import { useTimerStore } from '@/stores/timer';
 
 const timer = useTimerStore();
 
-//to work with the sessions values in a human form
-
+// --- STATE ---
+// These refs keep the form values in a human-friendly HH:MM:SS format.
 const workHours = ref(Math.floor(timer.sessions[0]!.time / 3600));
 const workMinutes = ref(Math.floor((timer.sessions[0]!.time % 3600) / 60));
 const workSeconds = ref(timer.sessions[0]!.time % 60);
@@ -20,17 +20,18 @@ const longSeconds = ref(timer.sessions[2]!.time % 60);
 
 const sessionsBeforeLongBreak = ref(timer.numberOfSessionBeforeLongBreak);
 
-
-//to preview each value in a human form in the settings
-
+// --- PREVIEW ---
+// These computed values display the current duration in the same human-readable shape as the form inputs.
 const workPreview = computed(() => formatDuration(workHours.value, workMinutes.value, workSeconds.value));
 const shortPreview = computed(() => formatDuration(shortHours.value, shortMinutes.value, shortSeconds.value));
 const longPreview = computed(() => formatDuration(longHours.value, longMinutes.value, longSeconds.value));
 
+// Format a duration into a readable HH:MM:SS string.
 function formatDuration(hours: number, minutes: number, seconds: number): string {
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
+// Clamp the entered values and convert them back into seconds for the timer store.
 function normalizeTime(hours: number, minutes: number, seconds: number): number {
     const safeHours = Math.min(24, Math.max(0, hours));
     const safeMinutes = Math.min(59, Math.max(0, minutes));
@@ -43,6 +44,7 @@ function normalizeTime(hours: number, minutes: number, seconds: number): number 
     return safeHours * 3600 + safeMinutes * 60 + safeSeconds;
 }
 
+// Update one of the stored timer presets and refresh the current timer when needed.
 function updateSessionTime(sessionIndex: number, hours: number, minutes: number, seconds: number): void {
     const totalSeconds = normalizeTime(hours, minutes, seconds);
 
@@ -53,18 +55,22 @@ function updateSessionTime(sessionIndex: number, hours: number, minutes: number,
     }
 }
 
+// Apply the work session values to the timer store.
 function updateWorkSession(): void {
     updateSessionTime(0, workHours.value, workMinutes.value, workSeconds.value);
 }
 
+// Apply the short break values to the timer store.
 function updateShortBreak(): void {
     updateSessionTime(1, shortHours.value, shortMinutes.value, shortSeconds.value);
 }
 
+// Apply the long break values to the timer store.
 function updateLongBreak(): void {
     updateSessionTime(2, longHours.value, longMinutes.value, longSeconds.value);
 }
 
+// Keep the number of sessions before the long break within the allowed range.
 function updateSessionCount(): void {
     const nextValue = Math.min(20, Math.max(1, sessionsBeforeLongBreak.value));
     sessionsBeforeLongBreak.value = nextValue;
@@ -73,13 +79,15 @@ function updateSessionCount(): void {
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 py-4">
-        <div class="rounded-2xl bg-surface-300 px-8 py-8">
+    <div class="flex flex-col gap-4 py-4 *:p-8">
+        <!-- The header card introduces the settings page and keeps the layout aligned with the timer view. -->
+        <div class="rounded-2xl bg-surface-300 ">
             <h2 class="text-center text-settings-title font-bold text-frosted">Settings</h2>
             <p class="mt-2 text-center text-sm text-text-muted">Adjust the timer defaults to match your rhythm.</p>
         </div>
 
-        <div class="rounded-2xl bg-surface-300 px-8 py-8">
+        <!-- The timer presets section contains the three duration editors for the work session and both breaks. -->
+        <div class="rounded-2xl bg-surface-300">
             <div class="mb-3 flex items-center justify-between">
                 <h3 class="text-lg font-semibold text-text-main">Timer presets</h3>
                 <span class="rounded-full bg-surface-100 px-3 py-1 text-sm text-text-muted">HH:MM:SS</span>
@@ -151,7 +159,8 @@ function updateSessionCount(): void {
             </div>
         </div>
 
-        <div class="rounded-2xl bg-surface-300 px-8 py-8">
+        <!-- The session cycle card controls how many work sessions happen before the long break appears. -->
+        <div class="rounded-2xl bg-surface-300 ">
             <h3 class="text-lg font-semibold text-text-main">Session cycle</h3>
             <label class="mt-3 block text-sm font-medium text-text-muted">
                 Sessions before long break
