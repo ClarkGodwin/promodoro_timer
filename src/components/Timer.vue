@@ -53,13 +53,13 @@ const timer = useTimerStore()
         </div>
     </div>
 
-    <div class="w-timer mx-auto">
-        <h1>Informations : </h1>
-        <ul>
+    <div class="w-timer mx-auto my-9">
+        <h1 class=" text-frosted font-bold text-[25px] mb-2">Informations : </h1>
+        <ul class="list-decimal *:mb-4">
             <li>You can't click on <span>Done</span> unless the timer is running</li>
             <li>
                 The default settings are :
-                <ol>
+                <ol class="list-disc text-text-muted ml-5 *:mb-2">
                     <li>25 min for the Work Session</li>
                     <li>5 min for the Short Break</li>
                     <li>15 min for the Long Break</li>
