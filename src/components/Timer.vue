@@ -18,7 +18,7 @@ function start () {
 <template>
     <div class="flex flex-col justify-between items-center w-timer h-timer mx-auto my-4 py-4  bg-surface-300 rounded-2xl">
         <div 
-        class="flex gap-session-gap items-center *:text-text-muted *:bg-surface-100 *:px-session-px *:py-session-py *:rounded-xl *:border *:border-transparent *:hover:border-frosted *:hover:text-frosted *:text-session *:text-center"
+        class="flex gap-session-gap items-center *:text-text-muted *:bg-surface-100 *:px-session-px *:py-session-py *:rounded-xl *:border *:border-transparent *:text-session *:text-center"
         >
             <button>Work Session</button>
             <button>Short Break</button>
@@ -27,7 +27,7 @@ function start () {
 
         <span class="text-frosted text-timer-center">{{ timer.formattedTime }}</span>
 
-        <div class="flex gap-timer-man-gap items-center *:flex *:items-center *:text-center *:gap-timer-man-button-gap *:bg-surface-100 *:text-text-muted *:px-timer-man-px *:py-timer-man-py *:rounded-xl *:text-timer-man">
+        <div class="flex gap-timer-man-gap items-center *:flex *:items-center *:text-center *:gap-timer-man-button-gap *:bg-surface-100 *:text-text-muted *:hover:text-frosted *:hover:cursor-pointer *:px-timer-man-px *:py-timer-man-py *:rounded-xl *:text-timer-man">
             <button @click="start()" v-if="!wasStarted">
                 <PlayCircle class=" size-(--text-timer-man)"/>
                 <span>Start</span>

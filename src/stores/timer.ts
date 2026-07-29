@@ -1,12 +1,29 @@
 // This is the store for the time shown in the timer, plus all the functions that help us manipulate it.
 
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { formatSeconds} from '@/utils/timeFormatter';
 
 export const useTimerStore = defineStore('timer', () => {
   // --- STATE ---
   const seconds = ref<number>(1500);
+  const session = reactive([
+    {
+      id: 1,
+      name: 'Work Session',
+      isActive: true
+    },
+    {
+      id: 2,
+      name: 'Short Break',
+      isActive: false
+    },
+    {
+      id: 3,
+      name: 'Long Break',
+      isActive: false
+    },
+  ])
   const isRunning = ref<boolean>(false);
   const isPaused = ref<boolean>(false);
   let timerInterval: number | null = null;
@@ -25,6 +42,9 @@ export const useTimerStore = defineStore('timer', () => {
 
     timerInterval = window.setInterval(() => {
       seconds.value--
+      if(seconds.value === 0) {
+        done()
+      }
     }, 1000);
   }
 
@@ -54,6 +74,7 @@ export const useTimerStore = defineStore('timer', () => {
 
   return {
     seconds,
+    session,
     isRunning,
     isPaused,
     formattedTime,
