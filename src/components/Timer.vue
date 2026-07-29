@@ -18,11 +18,18 @@ function start () {
 <template>
     <div class="flex flex-col justify-between items-center w-timer h-timer mx-auto my-4 py-4  bg-surface-300 rounded-2xl">
         <div 
-        class="flex gap-session-gap items-center *:text-text-muted *:bg-surface-100 *:px-session-px *:py-session-py *:rounded-xl *:border *:border-transparent *:text-session *:text-center"
+        class="flex gap-session-gap items-center *:px-session-px *:py-session-py *:rounded-xl *:border *:border-transparent *:text-session *:text-center"
         >
-            <button>Work Session</button>
-            <button>Short Break</button>
-            <button>Long Break</button>
+            <button
+            v-for="session in timer.sessions"
+            :key="session.id"
+            :class="{
+                'text-text-muted bg-surface-100 ': !session.isActive,
+                'text-white bg-frosted ': session.isActive,
+            }"
+            >
+                {{ session.name }}
+            </button>
         </div>
 
         <span class="text-frosted text-timer-center">{{ timer.formattedTime }}</span>

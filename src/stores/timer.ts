@@ -7,7 +7,7 @@ import { formatSeconds} from '@/utils/timeFormatter';
 export const useTimerStore = defineStore('timer', () => {
   // --- STATE ---
   const seconds = ref<number>(1500);
-  const session = reactive([
+  const sessions = reactive([
     {
       id: 1,
       name: 'Work Session',
@@ -74,7 +74,7 @@ export const useTimerStore = defineStore('timer', () => {
 
   return {
     seconds,
-    session,
+    sessions,
     isRunning,
     isPaused,
     formattedTime,
