@@ -5,14 +5,6 @@ import { useTimerStore } from '@/stores/timer';
 
 const timer = useTimerStore()
 
-//for displaying start or pause depending on if the timer was started or not
-//so, of course it starts with false and its value changes  once  and for all till you start another timer
-const wasStarted = ref(false)
-function start () {
-    wasStarted.value = true
-    timer.start() 
-}
-
 </script>
 
 <template>
@@ -39,13 +31,13 @@ function start () {
         <div class="flex gap-timer-man-gap items-center *:flex *:items-center *:text-center *:gap-timer-man-button-gap *:bg-surface-100 *:text-text-muted *:hover:text-frosted *:hover:cursor-pointer *:px-timer-man-px *:py-timer-man-py *:rounded-xl *:text-timer-man">
 
             <!-- is displayed only at the beginning and never after unless you refresh the page -->
-            <button @click="start()" v-if="!wasStarted">
+            <button @click="timer.start()" v-if="timer.isStarting">
                 <PlayCircle class=" size-(--text-timer-man)"/>
                 <span>Start</span>
             </button>
 
             <!-- is displayed after either the button start or resume was clicked -->
-            <button @click="timer.pause()" v-else-if="wasStarted && timer.isRunning">
+            <button @click="timer.pause()" v-else-if="timer.isRunning">
                 <CirclePause class=" size-(--text-timer-man)"/>
                 <span>Pause</span>
             </button>

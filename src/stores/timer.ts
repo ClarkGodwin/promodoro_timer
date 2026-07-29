@@ -52,6 +52,7 @@ export const useTimerStore = defineStore('timer', () => {
   function start(): void {
     if (isRunning.value) return;
 
+    isStarting.value = false;
     isRunning.value = true;
     isPaused.value = false;
 
@@ -137,6 +138,8 @@ export const useTimerStore = defineStore('timer', () => {
 
         //we give to the ref 'seconds' the value of the time reserved  for the work session
         seconds.value = sessions[0]!.time;
+
+        isStarting.value = true;
       }
     }
   }
