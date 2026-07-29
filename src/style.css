@@ -71,4 +71,7 @@
     --text-timer-man : clamp(0.5rem,0.389rem + 0.556vw,0.875rem) ;
     /*size of the elements in the div containing  pause, resume and stop*/
 
+    --text-settings-title : clamp(1.25rem,1.157rem + 0.463vw,1.5625rem);
+    /*size of the title in the settings page*/
+
 }

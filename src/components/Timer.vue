@@ -9,7 +9,7 @@ const timer = useTimerStore()
 
 <template>
     <div
-        class="flex flex-col justify-between items-center w-timer h-timer mx-auto my-4 py-4  bg-surface-300 rounded-2xl">
+        class="flex flex-col justify-between items-center h-timer py-4  bg-surface-300 rounded-2xl">
         <div
             class="flex gap-session-gap items-center *:px-session-px *:py-session-py *:rounded-xl *:border *:border-transparent *:text-session *:text-center">
             <!-- it displays the sessions -->
@@ -54,8 +54,8 @@ const timer = useTimerStore()
     </div>
 
     <div class="w-timer mx-auto my-9">
-        <h1 class=" text-frosted font-bold text-[25px] mb-2">Informations : </h1>
-        <ul class="list-decimal *:mb-4">
+        <h1 class=" text-frosted text-session font-bold mb-2">Informations : </h1>
+        <ul class="list-decimal *:mb-4 *:text-timer-man">
             <li>You can't click on <span>Done</span> unless the timer is running</li>
             <li>
                 The default settings are :

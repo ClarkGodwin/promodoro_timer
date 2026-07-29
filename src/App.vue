@@ -12,6 +12,8 @@ import { SettingsIcon } from '@lucide/vue';
     </RouterLink>
   </header>
 
-  <RouterView />
+  <div class="w-timer mx-auto my-4">
+    <RouterView />
+  </div>
 </template>
 

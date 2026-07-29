@@ -33,7 +33,7 @@ export const useTimerStore = defineStore('timer', () => {
   const seconds = ref<number>(sessions[0]!.time);
 
   //the number of sessions that has to be done before the long break
-  const numberOfSessionBeforeLongBreak = ref(2);
+  const numberOfSessionBeforeLongBreak = ref(5);
 
   //to track the actual session. A session is counted as 1 when  the work and the short break sessions are done
   const sessionTracker = ref(1);
@@ -154,6 +154,7 @@ export const useTimerStore = defineStore('timer', () => {
     isStarting,
     isRunning,
     isPaused,
+    numberOfSessionBeforeLongBreak,
     formattedTime,
     start,
     pause,
