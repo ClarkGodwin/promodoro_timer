@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useTimerStore } from '@/stores/timer';
 import { formatSeconds, parseTimeToSeconds } from '@/utils/timeFormatter';
+import { reactive, type Reactive } from 'vue';
+import type { V } from 'vue-router/dist/index-BN0B0y8a.js';
 
 const timer = useTimerStore();
 
@@ -8,7 +10,7 @@ const timer = useTimerStore();
 
     - secondly I splited it using the character ':'
 
-    - thirdly I must return an array of numbers with 3 values, hour, minute, second. Except second, the value of the two others can be 0
+    - thirdly I must return an array of numbers with 3 values, hour, minute, second. Except second, the value of the two others can be undefined  which is why you see push(0,0,s)
 */
 
 function splitFormatSeconds(seconds : number) : number[] {
@@ -33,6 +35,12 @@ function splitFormatSeconds(seconds : number) : number[] {
     return numberSplittedFormat;
 }
 
+const sessions = reactive(timer.sessions.map(session => ({ ...session })))
+
+sessions[0]!.id = 6
+
+
+console.log(timer.sessions[0]!.id)
 
 </script>
 
