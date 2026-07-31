@@ -1,8 +1,8 @@
 /**
- * Convertit des secondes en format adaptatif :
- * - 00:00:00 (si >= 1 heure)
- * - 00:00 (si >= 1 minute)
- * - 00 (si < 1 minute)
+ * Converts seconds into an adaptive format:
+ * - 00:00:00 (if >= 1 hour)
+ * - 00:00 (if >= 1 minute)
+ * - 00 (if < 1 minute)
  */
 export function formatSeconds(totalSeconds: number): string {
   if (totalSeconds < 0 || isNaN(totalSeconds)) return '00';
@@ -23,7 +23,7 @@ export function formatSeconds(totalSeconds: number): string {
 }
 
 /**
- * Convertit une chaîne ("00:00:00", "00:00", ou "00") en secondes totales.
+ * Converts a string ("00:00:00", "00:00", or "00") to total seconds.
  */
 export function parseTimeToSeconds(timeString: string): number {
   if (!timeString) return 0;
@@ -31,15 +31,15 @@ export function parseTimeToSeconds(timeString: string): number {
   const parts = timeString.split(':').map((part) => parseInt(part, 10) || 0);
 
   if (parts.length === 3) {
-    // Format HH:MM:SS
+    // HH:MM:SS format
     const [h, m, s]: [number, number, number] = parts as [number, number, number];
     return h * 3600 + m * 60 + s;
   } else if (parts.length === 2) {
-    // Format MM:SS
+    // MM:SS format
     const [m, s]: [number, number] = parts as [number, number];
     return m * 60 + s;
   } else if (parts.length === 1) {
-    // Format SS
+    // SS format
     const s : number = parts[0] as number;
     return s;
   }

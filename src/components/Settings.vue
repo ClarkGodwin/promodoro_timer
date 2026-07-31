@@ -4,10 +4,16 @@ import { formatSeconds, parseTimeToSeconds } from '@/utils/timeFormatter';
 
 const timer = useTimerStore();
 
-//to first
+/*  - first use the formatSeconds function from /utils folder. Check its documentation 
+
+    - secondly I splited it using the character ':'
+
+    - thirdly I must return an array of numbers with 3 values, hour, minute, second. Except second, the value of the two others can be 0
+*/
+
 function splitFormatSeconds(seconds : number) : number[] {
-    const unsplittedFormat = formatSeconds(seconds); 
-    const stringSplittedFormat = unsplittedFormat.split(':');
+    const unsplittedFormat : string = formatSeconds(seconds); 
+    const stringSplittedFormat : string[] = unsplittedFormat.split(':');
     const numberSplittedFormat : number [] = [];
 
     switch (stringSplittedFormat.length) {
