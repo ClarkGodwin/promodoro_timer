@@ -74,4 +74,10 @@
     --text-settings-title : clamp(1.25rem,1.157rem + 0.463vw,1.5625rem);
     /*size of the title in the settings page*/
 
+    --text-settings-header-title : clamp(1.125rem,0.995rem + 0.648vw,1.5625rem);
+    /*size of the title in the first section of the settings.vue component*/
+
+    --text-settings-header-text : clamp(0.75rem,0.676rem + 0.370vw,1rem);
+    /*size of the text in the p tag in the first section of the settings.vue component*/
+
 }
