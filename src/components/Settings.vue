@@ -76,10 +76,9 @@ const sessions = reactive(
 
 const numberOfWorkSessionBeforeLongBreak = ref(timer.numberOfWorkSessionBeforeLongBreak);
 
-function save() { }
-
-function reset() { }
-
+/**
+ * I created this reactive variable to show informations to the user in a dialog modal to ask him if he's sure of the modifications he's about to register
+ */
 const validations = reactive([
     {
         id: 1,
@@ -87,6 +86,7 @@ const validations = reactive([
         name: 'Save',
         text: computed(() => {
             let selectedTimeFormatted = '';
+            //to show the selected time for each session in a human format
             sessions.map((session) => {
                 const totalSeconds = session.splittedFormat.hour.valueOfIt * 3600 + session.splittedFormat.minute.valueOfIt * 60 + session.splittedFormat.second.valueOfIt;
 
@@ -114,6 +114,16 @@ const validations = reactive([
         action: reset(),
     },
 ])
+
+function save() {
+    sessions.map((session) => {
+        session.time = session.splittedFormat.hour.valueOfIt * 3600 + session.splittedFormat.minute.valueOfIt * 60 + session.splittedFormat.second.valueOfIt;
+    });
+
+}
+
+function reset() { }
+
 
 console.log(validations[0]?.text)
 
@@ -173,8 +183,10 @@ const test = ref(false)
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                                <AlertDialogAction @click="validation.action" class="cursor-pointer text-white bg-frosted font-bold">Yes</AlertDialogAction>
-                                <AlertDialogCancel @click="validation.trigger = false" class="cursor-pointer text-white bg-red-600 font-bold">No</AlertDialogCancel>
+                                <AlertDialogAction @click="validation.action"
+                                    class="cursor-pointer text-white bg-frosted font-bold">Yes</AlertDialogAction>
+                                <AlertDialogCancel @click="validation.trigger = false"
+                                    class="cursor-pointer text-white bg-red-600 font-bold">No</AlertDialogCancel>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
