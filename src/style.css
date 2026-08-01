@@ -31,6 +31,9 @@
     --width-timer : clamp(18.75rem,9.491rem + 46.296vw,50rem);
     /*The fluid  width of timer*/
 
+    --width-validation-button : clamp(4.375rem,3.819rem + 2.778vw,6.25rem);
+    /*the fluid size of the validation buttons in the settings.vue component visible in the settings page*/
+
     --height-timer : clamp(21.875rem,20.023rem + 9.259vw,28.125rem);
     /*The fluid  height of timer*/
 

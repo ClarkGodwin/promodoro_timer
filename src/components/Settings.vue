@@ -77,7 +77,7 @@ const sessions = reactive(
 
 const numberOfWorkSessionBeforeLongBreak = ref(timer.numberOfWorkSessionBeforeLongBreak);
 
-console.log(sessions)
+const test = ref(false)
 
 </script>
 
@@ -120,10 +120,12 @@ console.log(sessions)
                     v-model="numberOfWorkSessionBeforeLongBreak">
             </div>
 
-            <AlertDialog>
-                <AlertDialogTrigger asChild>
-                    <Button variant="outline">Show Dialog</Button>
-                </AlertDialogTrigger>
+            <div class="flex gap-3 justify-end *:w-validation-button *:bg-frosted *:text-white *:font-bold *:rounded-2xl *:py-1 *:sm:py-1.5 *:cursor-pointer">
+                <button @click="test = !test">Save</button>
+                <button>Reset</button>
+            </div>
+
+            <AlertDialog v-model:open="test">
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
