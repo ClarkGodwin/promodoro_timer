@@ -80,4 +80,7 @@
     --text-settings-header-text : clamp(0.75rem,0.676rem + 0.370vw,1rem);
     /*size of the text in the p tag in the first section of the settings.vue component*/
 
+    --text-settings-input : clamp(0.6875rem,0.595rem + 0.463vw,1rem);
+    /*size of the text in the input field in the setting's page*/
+
 }
