@@ -2,7 +2,17 @@
 import { useTimerStore } from '@/stores/timer';
 import { formatSeconds, parseTimeToSeconds } from '@/utils/timeFormatter';
 import { reactive, ref, type Reactive } from 'vue';
-import type { V } from 'vue-router/dist/index-BN0B0y8a.js';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const timer = useTimerStore();
 
@@ -82,7 +92,8 @@ console.log(sessions)
             played. <br><br>
             <span class="text-frosted font-bold">* </span>Due to logic, the limit for hours is 10, 59 for the minutes
             and seconds. I don't think someone will ever need up to 11 hours for each work session. <br><br>
-            <span class="text-frosted font-bold">* </span>The limit for the number of work sessions before the long break is 30. <br><br> 
+            <span class="text-frosted font-bold">* </span>The limit for the number of work sessions before the long
+            break is 30. <br><br>
             <span class="text-frosted font-bold">* </span>Click on <span class="text-frosted font-bold">save</span> to
             the save the modifications or on <span class="text-frosted font-bold">reset</span> to come back to the
             original values
@@ -108,6 +119,25 @@ console.log(sessions)
                 <input type="number" class="bg-surface-100 rounded-2xl py-1 px-3"
                     v-model="numberOfWorkSessionBeforeLongBreak">
             </div>
+
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button variant="outline">Show Dialog</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete your account
+                            from our servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     </section>
 
