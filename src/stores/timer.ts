@@ -14,18 +14,21 @@ export const useTimerStore = defineStore('timer', () => {
       name: 'Work Session',
       isActive: true,
       time: 1500,
+      resetValue: 1500,
     },
     {
       id: 2,
       name: 'Short Break',
       isActive: false,
       time: 300,
+      resetValue: 300,
     },
     {
       id: 3,
       name: 'Long Break',
       isActive: false,
       time: 900,
+      resetValue: 900,
     },
   ]);
 

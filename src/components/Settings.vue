@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTimerStore } from '@/stores/timer';
 import { formatSeconds, parseTimeToSeconds } from '@/utils/timeFormatter';
-import { reactive, ref, type Reactive } from 'vue';
+import { computed, reactive, ref, type Reactive } from 'vue';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -11,7 +11,6 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
 const timer = useTimerStore();
@@ -77,6 +76,47 @@ const sessions = reactive(
 
 const numberOfWorkSessionBeforeLongBreak = ref(timer.numberOfWorkSessionBeforeLongBreak);
 
+function save() { }
+
+function reset() { }
+
+const validations = reactive([
+    {
+        id: 1,
+        trigger: false,
+        name: 'Save',
+        text: computed(() => {
+            let selectedTimeFormatted = '';
+            sessions.map((session) => {
+                const totalSeconds = session.splittedFormat.hour.valueOfIt * 3600 + session.splittedFormat.minute.valueOfIt * 60 + session.splittedFormat.second.valueOfIt;
+
+                selectedTimeFormatted += session.name + ': ' + formatSeconds(totalSeconds) + '\n '
+            });
+
+            return 'The values you selected : \n\n ' + selectedTimeFormatted + 'Number of work sessions before long break : ' + numberOfWorkSessionBeforeLongBreak.value + '\n\n will be applied'
+        }),
+        action: save(),
+    },
+    {
+        id: 2,
+        trigger: false,
+        name: 'Reset',
+        text: computed(() => {
+            let selectedTimeFormatted = '';
+            sessions.map((session) => {
+                selectedTimeFormatted += session.name + ': ' + formatSeconds(session.resetValue) + '\n '
+            });
+
+            numberOfWorkSessionBeforeLongBreak.value = 5
+
+            return 'The default values : \n\n ' + selectedTimeFormatted + 'Number of work sessions before long break : ' + 5 + '\n\n will be applied'
+        }),
+        action: reset(),
+    },
+])
+
+console.log(validations[0]?.text)
+
 const test = ref(false)
 
 </script>
@@ -120,26 +160,27 @@ const test = ref(false)
                     v-model="numberOfWorkSessionBeforeLongBreak">
             </div>
 
-            <div class="flex gap-3 justify-end *:w-validation-button *:bg-frosted *:text-white *:font-bold *:rounded-2xl *:py-1 *:sm:py-1.5 *:cursor-pointer">
-                <button @click="test = !test">Save</button>
-                <button>Reset</button>
+            <div
+                class="flex gap-3 justify-end *:w-validation-button *:bg-frosted *:text-white *:font-bold *:rounded-2xl *:py-1 *:sm:py-1.5 *:cursor-pointer">
+                <button v-for="validation in validations" :key="validation.id" @click="validation.trigger = true">
+                    {{ validation.name }}
+                    <AlertDialog v-model:open="validation.trigger">
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription class="whitespace-pre-line">
+                                    {{ validation.text }}
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogAction @click="validation.action" class="cursor-pointer text-white bg-frosted font-bold">Yes</AlertDialogAction>
+                                <AlertDialogCancel @click="validation.trigger = false" class="cursor-pointer text-white bg-red-600 font-bold">No</AlertDialogCancel>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                </button>
             </div>
 
-            <AlertDialog v-model:open="test">
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete your account
-                            from our servers.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
         </div>
     </section>
 
