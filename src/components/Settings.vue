@@ -122,6 +122,7 @@ const validations = reactive([
 ])
 
 function save() {
+    let sessionData : number[] = [] 
 
     //to update the time proprety(that has the value in seconds) so that I'll be able to pass it to the sessions state in the store
     sessions.map((session) => {
@@ -130,28 +131,35 @@ function save() {
 
     //it updates the values of store's sessions state but no worries, it doesn't affect the displayed timer in the home page since it's a different state that's being displayed
     for (let i = 0; i < sessions.length; i++) {
-        timer.sessions[i]!.time = sessions[i]!.time
+        sessionData.push(sessions[i]!.time) 
     }
 
-    timer.numberOfWorkSessionBeforeLongBreak = numberOfWorkSessionBeforeLongBreak.value
-
-    doNotRepeatYourself()
+    doNotRepeatYourself(sessionData, numberOfWorkSessionBeforeLongBreak.value)
 }
 
 //except for the values, the logic is pretty much the same as for the save method
 function reset() {
+    let sessionData : number[] = [] 
+
     for (let i = 0; i < sessions.length; i++) {
-        timer.sessions[i]!.time = timer.sessions[i]!.resetValue
-
+        sessionData.push(timer.sessions[i]!.resetValue)
     }
-    timer.numberOfWorkSessionBeforeLongBreak = 5
 
-    doNotRepeatYourself()
+
+    doNotRepeatYourself(sessionData, 5)
 
 }
 
 
-async function doNotRepeatYourself() {
+//for the functions save() and reset() above
+async function doNotRepeatYourself(sessionData : number[], numberOfWorkSessionBeforeLongBreak: number) {
+
+    for (let i = 0; i < sessions.length; i++) {
+        timer.sessions[i]!.time = sessionData[i]!
+    }
+
+    timer.numberOfWorkSessionBeforeLongBreak = numberOfWorkSessionBeforeLongBreak
+
     toast.showToast()
 
     await router.push({ name: 'home' })
@@ -225,9 +233,9 @@ async function doNotRepeatYourself() {
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                                 <AlertDialogAction @click="validation.action"
-                                    class="cursor-pointer text-white bg-frosted font-bold">Yes</AlertDialogAction>
+                                    class="cursor-pointer text-white bg-frosted font-bold hover:bg-frosted hover:text-white">Yes</AlertDialogAction>
                                 <AlertDialogCancel @click="validation.trigger = false"
-                                    class="cursor-pointer text-white bg-red-600 font-bold">No</AlertDialogCancel>
+                                    class="cursor-pointer text-white bg-red-600 font-bold hover:bg-red-600 hover:text-white">No</AlertDialogCancel>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
