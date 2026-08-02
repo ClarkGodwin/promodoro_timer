@@ -34,6 +34,9 @@
     --width-validation-button : clamp(4.375rem,3.819rem + 2.778vw,6.25rem);
     /*the fluid size of the validation buttons in the settings.vue component visible in the settings page*/
 
+    --width-toast : clamp(7.5rem,6.019rem + 7.407vw,12.5rem);
+    /*width of the toast in the Toast.vue component*/
+
     --height-timer : clamp(21.875rem,20.023rem + 9.259vw,28.125rem);
     /*The fluid  height of timer*/
 
@@ -57,8 +60,11 @@
     --spacing-timer-man-button-gap : clamp(0.125rem,0.088rem + 0.185vw,0.25rem) ;
     /*this  gap is between the text(in span) and the icon in every button in the timer-man*/
 
-    --spacing-left-toaster : clamp(3.25rem,0.139rem + 15.556vw,13.75rem);
+    --spacing-toast : clamp(6.25rem,4.028rem + 11.111vw,13.75rem);
     /*this is the value of the position of the toaster from left with the header as the relative position*/
+
+    --spacing-p-toast : clamp(0.625rem,0.514rem + 0.556vw,1rem);
+    /*the value of the padding all around the toaster. */
 
     /*------------------TEXT'S SIZES------------------*/
 
@@ -88,6 +94,9 @@
 
     --text-settings-input : clamp(0.6875rem,0.595rem + 0.463vw,1rem);
     /*size of the text in the input field in the setting's page*/
+
+    --text-toast : clamp(0.5rem,0.389rem + 0.556vw,0.875rem);
+    /*the size of the elements inside the toast*/
 
 }
 /*---break---*/
