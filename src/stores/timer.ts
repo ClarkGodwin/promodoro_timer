@@ -36,16 +36,32 @@ export const useTimerStore = defineStore('timer', () => {
    * The reason why I decided to create a distinct displayed value is because I want to be able to update the values of the state in the 'back-end', if I can call it that way, without affecting the value displayed on the screen since the user might go to the settings page while the tie 
    */
 
-  //what's displayed on the timer
-  const seconds = ref<number>(sessions[0]!.time);
-
   //the number of work sessions that has to be done before the long break
   const numberOfWorkSessionBeforeLongBreak = ref(5);
+
+  const settings = localStorage.getItem('settings');
+
+  //if there are saved settings from the settings page, update the values of the corresponding states in this store
+  if (settings) {
+    const parsedSettings = JSON.parse(settings);
+
+    for (let i = 0; i < parsedSettings.sessionData.length; i++) {
+      sessions[i]!.time = parsedSettings.sessionData[i]!
+    }
+
+    numberOfWorkSessionBeforeLongBreak.value = parsedSettings.numberOfWorkSessionBeforeLongBreak 
+  }
+
+  //what's displayed on the timer
+  //it is declared right after the settings localstorage check so that the value displayed matches what was saved in the settings by the user
+  const seconds = ref<number>(sessions[0]!.time);
 
   //to track the actual session. A session is counted as 1 when  the work and the short break sessions are done
   const sessionTracker = ref(1);
 
+  //this value is true only at the begining before the user hits start. It will be true again when the user finishes the long break 
   const isStarting = ref<boolean>(true);
+
   const isRunning = ref<boolean>(false);
   const isPaused = ref<boolean>(false);
   let timerInterval: number | null = null;

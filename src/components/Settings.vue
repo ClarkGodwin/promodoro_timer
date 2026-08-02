@@ -160,6 +160,14 @@ async function doNotRepeatYourself(sessionData : number[], numberOfWorkSessionBe
 
     timer.numberOfWorkSessionBeforeLongBreak = numberOfWorkSessionBeforeLongBreak
 
+    //values that'll be stored in the local storage
+    const settings = {
+        sessionData : sessionData,
+        numberOfWorkSessionBeforeLongBreak : numberOfWorkSessionBeforeLongBreak
+    }
+
+    localStorage.setItem('settings', JSON.stringify(settings));
+
     toast.showToast()
 
     await router.push({ name: 'home' })
