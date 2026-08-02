@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { CirclePause, PlayCircle, SquareCheck } from '@lucide/vue';
 import { useTimerStore } from '@/stores/timer';
+import { onUnmounted } from 'vue';
 
 const timer = useTimerStore()
+
+//to stop the sound when the user leaves the page
+onUnmounted(()=>{
+    timer.stopSound()
+})
 
 </script>
 
@@ -57,6 +63,11 @@ const timer = useTimerStore()
     <div class="w-timer mx-auto my-9">
         <h1 class=" text-frosted text-session font-bold mb-2">Informations : </h1>
         <ul class="list-decimal *:mb-4 *:text-timer-man">
+            <li>
+                A sound plays everytime the timer reaches 0.
+                <span class="text-red-600 font-bold">Click on Done in that case</span>
+            </li>
+
             <li>The <span class="text-frosted">#{number}</span> part tells you at how many working sessions you are.
                 <br>
                 Once it hits <span class="text-frosted">{{ timer.numberOfWorkSessionBeforeLongBreak }}</span> the long

@@ -49,7 +49,7 @@ export const useTimerStore = defineStore('timer', () => {
       sessions[i]!.time = parsedSettings.sessionData[i]!
     }
 
-    numberOfWorkSessionBeforeLongBreak.value = parsedSettings.numberOfWorkSessionBeforeLongBreak 
+    numberOfWorkSessionBeforeLongBreak.value = parsedSettings.numberOfWorkSessionBeforeLongBreak
   }
 
   //what's displayed on the timer
@@ -66,10 +66,34 @@ export const useTimerStore = defineStore('timer', () => {
   const isPaused = ref<boolean>(false);
   let timerInterval: number | null = null;
 
+  const alarmAudio = ref<HTMLAudioElement | null>(null)
+
   // --- GETTERS ---
   const formattedTime = computed<string>(() => formatSeconds(seconds.value));
 
   // --- ACTIONS ---
+
+  function startSound() {
+    // If there's a sound playing, we stop it before starting a new one
+    stopSound()
+
+    //creation of the sound  
+    alarmAudio.value = new Audio('../../public/sounds/alarm.wav')
+
+    //we loop it so that it keeps playing till the user stops it or goes somewhere else
+    alarmAudio.value.loop = true
+
+    alarmAudio.value.play()
+  }
+
+  function stopSound() {
+    if (alarmAudio.value) {
+      // 3. Pause + back at zero
+      alarmAudio.value.pause()
+      alarmAudio.value.currentTime = 0
+      alarmAudio.value = null
+    }
+  }
 
   // Start from zero or restart
   function start(): void {
@@ -82,7 +106,7 @@ export const useTimerStore = defineStore('timer', () => {
     timerInterval = window.setInterval(() => {
       seconds.value--
       if (seconds.value === 0) {
-        done()
+        startSound()
       }
     }, 1000);
   }
@@ -105,6 +129,8 @@ export const useTimerStore = defineStore('timer', () => {
   }
 
   function done(): void {
+    stopSound()
+
     if (timerInterval !== null) {
       clearInterval(timerInterval);
       timerInterval = null;
@@ -180,6 +206,7 @@ export const useTimerStore = defineStore('timer', () => {
     isPaused,
     numberOfWorkSessionBeforeLongBreak,
     formattedTime,
+    stopSound,
     start,
     pause,
     resume,
