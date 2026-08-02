@@ -1,13 +1,28 @@
 <script setup lang="ts">
 import { SettingsIcon } from '@lucide/vue';
 import Toast from '@/components/Toast.vue';
+import { ref } from 'vue';
+
+const toastShown = ref(false)
+
+function showToast(){
+  toastShown.value = true
+  setTimeout(() => {
+    toastShown.value = false
+  }, 3000);
+}
+
+setTimeout(() => {
+  showToast()
+}, 4000);
+
 </script>
 
 <template>
+  <div v-if="toastShown" class=" relative w-header mx-auto">
+    <Toast/>
+  </div>
   <header class="flex  justify-between  items-center w-header mx-auto py-2.5 *:text-frosted">
-    <div class=" relative">
-      <Toast/>
-    </div>
 
     <RouterLink :to="{ name: 'home' }" class="text-header">
       Welcome in our Promodoro Timer
