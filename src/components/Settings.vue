@@ -13,8 +13,11 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from 'vue-router';
+import { useToastStore } from '@/stores/toast';
 
 const router = useRouter()
+
+const toast = useToastStore()
 
 const timer = useTimerStore();
 
@@ -132,21 +135,34 @@ function save() {
 
     timer.numberOfWorkSessionBeforeLongBreak = numberOfWorkSessionBeforeLongBreak.value
 
-    router.push({name: 'home'})
+    doNotRepeatYourself()
 }
 
 //except for the values, the logic is pretty much the same as for the save method
 function reset() {
     for (let i = 0; i < sessions.length; i++) {
         timer.sessions[i]!.time = timer.sessions[i]!.resetValue
-        
+
     }
     timer.numberOfWorkSessionBeforeLongBreak = 5
 
-    router.push({name: 'home'})
+    doNotRepeatYourself()
+
 }
 
 
+async function doNotRepeatYourself() {
+    toast.showToast()
+
+    await router.push({ name: 'home' })
+
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto'
+    })
+
+}
 
 
 </script>
@@ -160,7 +176,8 @@ function reset() {
             <span class="text-frosted font-bold">* </span>Here you can modify the value the time of each session and
             even the number of work session before the long break session. <br><br>
 
-            <span class="text-frosted font-bold">* </span>The modifications won't be applied to the session being played except for the number of work session before the long break. <br><br>
+            <span class="text-frosted font-bold">* </span>The modifications won't be applied to the session being played
+            except for the number of work session before the long break. <br><br>
 
             <span class="text-frosted font-bold">* </span>Due to logic, the limit for hours is 10, 59 for the minutes
             and seconds. I don't think someone will ever need up to 11 hours for each work session. <br><br>

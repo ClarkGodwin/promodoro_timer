@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { SettingsIcon } from '@lucide/vue';
 import Toast from '@/components/Toast.vue';
-import { ref } from 'vue';
+import { useToastStore } from './stores/toast';
 
-const toastShown = ref(false)
+const toast = useToastStore()
 
 </script>
 
 <template>
-  <div v-if="toastShown" class=" relative w-header mx-auto">
+  <div v-if="toast.toastShown" class=" relative w-header mx-auto">
     <Toast/>
   </div>
   <header class="flex  justify-between  items-center w-header mx-auto py-2.5 *:text-frosted">

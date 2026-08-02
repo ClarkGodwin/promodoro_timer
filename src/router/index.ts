@@ -4,8 +4,7 @@ const routes = [
   { 
     path: '/', 
     name: 'home',
-    component: () => import('@/components/Timer.vue'),
-    meta : {showToast : false }
+    component: () => import('@/components/Timer.vue')
   },
   { 
     path: '/settings', 
@@ -18,7 +17,5 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
-
-router.beforeEach((to, from))
 
 export default router
