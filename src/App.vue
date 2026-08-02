@@ -5,17 +5,6 @@ import { ref } from 'vue';
 
 const toastShown = ref(false)
 
-function showToast(){
-  toastShown.value = true
-  setTimeout(() => {
-    toastShown.value = false
-  }, 3000);
-}
-
-setTimeout(() => {
-  showToast()
-}, 4000);
-
 </script>
 
 <template>
