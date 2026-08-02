@@ -32,6 +32,10 @@ export const useTimerStore = defineStore('timer', () => {
     },
   ]);
 
+  /**
+   * The reason why I decided to create a distinct displayed value is because I want to be able to update the values of the state in the 'back-end', if I can call it that way, without affecting the value displayed on the screen since the user might go to the settings page while the tie 
+   */
+
   //what's displayed on the timer
   const seconds = ref<number>(sessions[0]!.time);
 
@@ -154,6 +158,7 @@ export const useTimerStore = defineStore('timer', () => {
   return {
     seconds,
     sessions,
+    sessionTracker,
     isStarting,
     isRunning,
     isPaused,

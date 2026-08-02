@@ -12,6 +12,9 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const timer = useTimerStore();
 
@@ -128,6 +131,8 @@ function save() {
     }
 
     timer.numberOfWorkSessionBeforeLongBreak = numberOfWorkSessionBeforeLongBreak.value
+
+    router.push({name: 'home'})
 }
 
 //except for the values, the logic is pretty much the same as for the save method
@@ -137,6 +142,8 @@ function reset() {
         
     }
     timer.numberOfWorkSessionBeforeLongBreak = 5
+
+    router.push({name: 'home'})
 }
 
 
@@ -149,14 +156,18 @@ function reset() {
         <h2 class="text-frosted text-settings-header-title text-center">Setting's page</h2>
         <p class="text-text-muted text-settings-header-text">
             <span class="text-frosted font-bold">Important Informations : </span><br> <br>
+
             <span class="text-frosted font-bold">* </span>Here you can modify the value the time of each session and
             even the number of work session before the long break session. <br><br>
-            <span class="text-frosted font-bold">* </span>The modifications won't be applied to the session being
-            played. <br><br>
+
+            <span class="text-frosted font-bold">* </span>The modifications won't be applied to the session being played except for the number of work session before the long break. <br><br>
+
             <span class="text-frosted font-bold">* </span>Due to logic, the limit for hours is 10, 59 for the minutes
             and seconds. I don't think someone will ever need up to 11 hours for each work session. <br><br>
+
             <span class="text-frosted font-bold">* </span>The limit for the number of work sessions before the long
             break is 30. <br><br>
+
             <span class="text-frosted font-bold">* </span>Click on <span class="text-frosted font-bold">save</span> to
             the save the modifications or on <span class="text-frosted font-bold">reset</span> to come back to the
             original values

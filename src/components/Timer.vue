@@ -8,7 +8,7 @@ const timer = useTimerStore()
 </script>
 
 <template>
-    <div
+    <div:
         class="flex flex-col justify-between items-center h-timer py-4  bg-surface-300 rounded-2xl">
         <div
             class="flex gap-session-gap items-center *:px-session-px *:py-session-py *:rounded-xl *:border *:border-transparent *:text-session *:text-center">
@@ -30,19 +30,22 @@ const timer = useTimerStore()
             <!-- is displayed only at the beginning and never after unless you refresh the page -->
             <button @click="timer.start()" v-if="timer.isStarting">
                 <PlayCircle class=" size-(--text-timer-man)" />
-                <span>Start</span>
+                <span>Start : </span>
+                <span class="text-frosted font-bold">#{{ timer.sessionTracker }}</span>
             </button>
 
             <!-- is displayed after either the button start or resume was clicked -->
             <button @click="timer.pause()" v-else-if="timer.isRunning">
                 <CirclePause class=" size-(--text-timer-man)" />
-                <span>Pause</span>
+                <span>Pause : </span>
+                <span class="text-frosted font-bold">#{{ timer.sessionTracker }}</span>
             </button>
 
             <!-- is displayed after the button pause was clicked -->
             <button @click="timer.resume()" v-else-if="timer.isPaused">
                 <PlayCircle class=" size-(--text-timer-man)" />
-                <span>Resume</span>
+                <span>Resume : </span>
+                <span class="text-frosted font-bold">#{{ timer.sessionTracker }}</span>
             </button>
 
             <button @click="timer.done()" :disabled="timer.isPaused || timer.isStarting"
@@ -51,12 +54,17 @@ const timer = useTimerStore()
                 <span>Done</span>
             </button>
         </div>
-    </div>
+    </div:>
 
     <div class="w-timer mx-auto my-9">
         <h1 class=" text-frosted text-session font-bold mb-2">Informations : </h1>
         <ul class="list-decimal *:mb-4 *:text-timer-man">
-            <li>You can't click on <span>Done</span> unless the timer is running</li>
+            <li>The <span class="text-frosted">#{number}</span> part tells you at how many working sessions you are. <br>
+                Once it hits <span class="text-frosted">{{ timer.numberOfWorkSessionBeforeLongBreak }}</span> the long break will start. You can modify that value in the settings
+            </li>
+
+            <li>You can't click on <span class="text-frosted">Done</span> unless the timer is running</li>
+
             <li>
                 The default settings are :
                 <ol class="list-disc text-text-muted ml-5 *:mb-2">
@@ -66,6 +74,7 @@ const timer = useTimerStore()
                     <li>5 work sessions before the long break</li>
                 </ol>
             </li>
+
             <li>You can change the default settings in the settings page, click on the icon at the top</li>
         </ul>
     </div>
