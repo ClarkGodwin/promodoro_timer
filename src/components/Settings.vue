@@ -95,7 +95,7 @@ const validations = reactive([
 
             return 'The values you selected : \n\n ' + selectedTimeFormatted + 'Number of work sessions before long break : ' + numberOfWorkSessionBeforeLongBreak.value + '\n\n will be applied'
         }),
-        action: save(),
+        action: () => save()
     },
     {
         id: 2,
@@ -111,23 +111,36 @@ const validations = reactive([
 
             return 'The default values : \n\n ' + selectedTimeFormatted + 'Number of work sessions before long break : ' + 5 + '\n\n will be applied'
         }),
-        action: reset(),
+        action: () => reset(),
     },
 ])
 
 function save() {
+
+    //to update the time proprety(that has the value in seconds) so that I'll be able to pass it to the sessions state in the store
     sessions.map((session) => {
         session.time = session.splittedFormat.hour.valueOfIt * 3600 + session.splittedFormat.minute.valueOfIt * 60 + session.splittedFormat.second.valueOfIt;
     });
 
+    //it updates the values of store's sessions state but no worries, it doesn't affect the displayed timer in the home page since it's a different state that's being displayed
+    for (let i = 0; i < sessions.length; i++) {
+        timer.sessions[i]!.time = sessions[i]!.time
+    }
+
+    timer.numberOfWorkSessionBeforeLongBreak = numberOfWorkSessionBeforeLongBreak.value
 }
 
-function reset() { }
+//except for the values, the logic is pretty much the same as for the save method
+function reset() {
+    for (let i = 0; i < sessions.length; i++) {
+        timer.sessions[i]!.time = timer.sessions[i]!.resetValue
+        
+    }
+    timer.numberOfWorkSessionBeforeLongBreak = 5
+}
 
 
-console.log(validations[0]?.text)
 
-const test = ref(false)
 
 </script>
 
