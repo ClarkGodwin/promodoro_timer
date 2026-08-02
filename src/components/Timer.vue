@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { CirclePause, PlayCircle, SquareCheck } from '@lucide/vue';
 import { useTimerStore } from '@/stores/timer';
-import Toast from '@/components/Toast.vue';
 
 const timer = useTimerStore()
 
 </script>
 
 <template>
-    <Toast/>
-    <div
-        class="flex flex-col justify-between items-center h-timer py-4  bg-surface-300 rounded-2xl">
+    <div class="flex flex-col justify-between items-center h-timer py-4  bg-surface-300 rounded-2xl">
         <div
             class="flex gap-session-gap items-center *:px-session-px *:py-session-py *:rounded-xl *:border *:border-transparent *:text-session *:text-center">
             <!-- it displays the sessions -->
@@ -60,8 +57,10 @@ const timer = useTimerStore()
     <div class="w-timer mx-auto my-9">
         <h1 class=" text-frosted text-session font-bold mb-2">Informations : </h1>
         <ul class="list-decimal *:mb-4 *:text-timer-man">
-            <li>The <span class="text-frosted">#{number}</span> part tells you at how many working sessions you are. <br>
-                Once it hits <span class="text-frosted">{{ timer.numberOfWorkSessionBeforeLongBreak }}</span> the long break will start. You can modify that value in the settings
+            <li>The <span class="text-frosted">#{number}</span> part tells you at how many working sessions you are.
+                <br>
+                Once it hits <span class="text-frosted">{{ timer.numberOfWorkSessionBeforeLongBreak }}</span> the long
+                break will start. You can modify that value in the settings
             </li>
 
             <li>You can't click on <span class="text-frosted">Done</span> unless the timer is running</li>
