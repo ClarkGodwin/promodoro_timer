@@ -11,7 +11,7 @@ const toast = useToastStore()
   <div v-if="toast.toastShown" class=" relative w-header mx-auto">
     <Toast/>
   </div>
-  <header class="flex  justify-between  items-center w-header mx-auto py-2.5 *:text-frosted">
+  <header class="flex  justify-between  items-center font-bold w-header mx-auto py-2.5 *:text-frosted">
 
     <RouterLink :to="{ name: 'home' }" class="text-header">
       Welcome in our Promodoro Timer

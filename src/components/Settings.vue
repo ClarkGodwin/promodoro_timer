@@ -185,7 +185,7 @@ async function doNotRepeatYourself(sessionData : number[], numberOfWorkSessionBe
 
 <template>
     <section class="bg-surface-300 rounded-2xl p-5 flex flex-col gap-3">
-        <h2 class="text-frosted text-settings-header-title text-center">Setting's page</h2>
+        <h2 class="text-frosted font-black text-settings-header-title text-center">Setting's page</h2>
         <p class="text-text-muted text-settings-header-text">
             <span class="text-frosted font-bold">Important Informations : </span><br> <br>
 
