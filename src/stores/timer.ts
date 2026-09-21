@@ -8,7 +8,9 @@ export const useTimerStore = defineStore('timer', () => {
   // --- STATE ---
 
   /**
-   * This variable will contains 
+   * This variable will contains a variant of the exact moment when a session will end; I mean that I'll use date.now() which gives the number of milliseconds that has passed since 01/01/1970 to calculate the exact moment from when the user hits start() or resume() when the session will end by adding the number of  seconds(of course, *1000) that the session will take.
+   * 
+   * You  might be wondering, why not just use setIntervall and decrement the seconds, well, I've tried and the issue is that the browser will stop it when you switch to other application. This method is  better to give to the user an accurate timer regardless of the memory management of any browser
    */
   const endTimer = ref(0)
 
