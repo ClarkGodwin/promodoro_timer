@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import { CirclePause, PlayCircle, SquareCheck } from '@lucide/vue';
 import { useTimerStore } from '@/stores/timer';
-import { onUnmounted } from 'vue';
+import { computed, onUnmounted, watch } from 'vue';
 
 const timer = useTimerStore()
+
+const formattedTime = computed(() => {
+    return timer.formattedTime
+})
+
+watch(formattedTime, () => {
+    document.title = formattedTime.value
+})
 
 //to stop the sound when the user leaves the page
 onUnmounted(()=>{
