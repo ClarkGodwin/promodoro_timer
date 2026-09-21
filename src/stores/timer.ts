@@ -7,6 +7,11 @@ import { formatSeconds } from '@/utils/timeFormatter';
 export const useTimerStore = defineStore('timer', () => {
   // --- STATE ---
 
+  /**
+   * This variable will contains 
+   */
+  const endTimer = ref(0)
+
   //the  sessions that will be rendered in the timer component
   const sessions = reactive([
     {
@@ -73,12 +78,19 @@ export const useTimerStore = defineStore('timer', () => {
 
   // --- ACTIONS ---
 
+  function clearTimerInterval(): void {
+    if (timerInterval != null) {
+      clearInterval(timerInterval)
+      timerInterval = null
+    }
+  }
+
   function startSound() {
     // If there's a sound playing, we stop it before starting a new one
     stopSound()
 
     //creation of the sound  
-    alarmAudio.value = new Audio('../../public/sounds/alarm.wav')
+    alarmAudio.value = new Audio('/sounds/alarm.wav')
 
     //we loop it so that it keeps playing till the user stops it or goes somewhere else
     alarmAudio.value.loop = true
@@ -106,6 +118,7 @@ export const useTimerStore = defineStore('timer', () => {
     timerInterval = window.setInterval(() => {
       seconds.value--
       if (seconds.value === 0) {
+        clearTimerInterval()
         startSound()
       }
     }, 1000);
@@ -113,10 +126,7 @@ export const useTimerStore = defineStore('timer', () => {
 
   // Pause (preserves the current seconds)
   function pause(): void {
-    if (timerInterval !== null) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
+    clearTimerInterval()
     isRunning.value = false;
     isPaused.value = true;
   }
@@ -131,74 +141,72 @@ export const useTimerStore = defineStore('timer', () => {
   function done(): void {
     stopSound()
 
-    if (timerInterval !== null) {
-      clearInterval(timerInterval);
-      timerInterval = null;
+    clearTimerInterval()
 
-      if (sessionTracker.value <= numberOfWorkSessionBeforeLongBreak.value) { //if we haven't gone yet beyond the number of sessions before long break
-        isRunning.value = false;
-        isPaused.value = true;
-        if (sessions[0]!.isActive) { // if we are actually in the working session
-          sessions[0]!.isActive = false;
+    if (sessionTracker.value <= numberOfWorkSessionBeforeLongBreak.value) { //if we haven't gone yet beyond the number of sessions before long break
+      isRunning.value = false;
+      isPaused.value = true;
+      if (sessions[0]!.isActive) { // if we are actually in the working session
+        sessions[0]!.isActive = false;
 
-          if (sessionTracker.value != numberOfWorkSessionBeforeLongBreak.value) { //and we haven't reached it yet
-            //we switch to the short break session
-            sessions[1]!.isActive = true;
+        if (sessionTracker.value != numberOfWorkSessionBeforeLongBreak.value) { //and we haven't reached it yet
+          //we switch to the short break session
+          sessions[1]!.isActive = true;
 
-            //we give to the ref 'seconds' the value of the time reserved  for the short break session
-            seconds.value = sessions[1]!.time;
-          }
-
-          else { //if not 
-            //we switch to the long break session
-            sessions[2]!.isActive = true;
-
-            //we give to the ref 'seconds' the value of the time reserved  for the short break session
-            seconds.value = sessions[0]!.time;
-
-            //we then increment the session tracker because the session is done
-            sessionTracker.value++;
-          }
-
+          //we give to the ref 'seconds' the value of the time reserved  for the short break session
+          seconds.value = sessions[1]!.time;
         }
 
-        else { // if, instead, we are in the short break session and we still haven't gone beyond the numbere of sessions before  long break
+        else { //if not 
+          //we switch to the long break session
+          sessions[2]!.isActive = true;
 
-          //we switch back to the work session
-          sessions[1]!.isActive = false;
-          sessions[0]!.isActive = true;
-
-          //we give to the ref 'seconds' the value of the time reserved  for the work session
+          //we give to the ref 'seconds' the value of the time reserved  for the short break session
           seconds.value = sessions[0]!.time;
 
           //we then increment the session tracker because the session is done
           sessionTracker.value++;
         }
 
-        //and we start right away the work session
-        start();
       }
 
-      else { //if  we have reached the number of session before long break
+      else { // if, instead, we are in the short break session and we still haven't gone beyond the numbere of sessions before  long break
 
-        //we switch to the work session
+        //we switch back to the work session
+        sessions[1]!.isActive = false;
         sessions[0]!.isActive = true;
-        sessions[2]!.isActive = false;
 
         //we give to the ref 'seconds' the value of the time reserved  for the work session
         seconds.value = sessions[0]!.time;
 
-        isStarting.value = true;
-        isRunning.value = false;
-        isPaused.value = false;
-
-        sessionTracker.value = 1;
+        //we then increment the session tracker because the session is done
+        sessionTracker.value++;
       }
+
+      //and we start right away the work session
+      start();
+    }
+
+    else { //if  we have reached the number of session before long break
+
+      //we switch to the work session
+      sessions[0]!.isActive = true;
+      sessions[2]!.isActive = false;
+
+      //we give to the ref 'seconds' the value of the time reserved  for the work session
+      seconds.value = sessions[0]!.time;
+
+      isStarting.value = true;
+      isRunning.value = false;
+      isPaused.value = false;
+
+      sessionTracker.value = 1;
     }
   }
 
   return {
     seconds,
+    timerInterval,
     sessions,
     sessionTracker,
     isStarting,
