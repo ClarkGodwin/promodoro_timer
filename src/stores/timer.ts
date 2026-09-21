@@ -109,6 +109,10 @@ export const useTimerStore = defineStore('timer', () => {
     }
   }
 
+  function secondsRemainingTillTheEndOfASession(){
+    seconds.value = Math.trunc((endTimer.value - Date.now())/1000)
+  }
+
   // Start from zero or restart
   function start(): void {
     if (isRunning.value) return;
@@ -117,8 +121,10 @@ export const useTimerStore = defineStore('timer', () => {
     isRunning.value = true;
     isPaused.value = false;
 
+    endTimer.value = Date.now() + seconds.value * 1000
+
     timerInterval = window.setInterval(() => {
-      seconds.value--
+      secondsRemainingTillTheEndOfASession()
       if (seconds.value === 0) {
         clearTimerInterval()
         startSound()
