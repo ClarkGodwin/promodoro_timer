@@ -170,7 +170,7 @@ export const useTimerStore = defineStore('timer', () => {
           sessions[2]!.isActive = true;
 
           //we give to the ref 'seconds' the value of the time reserved  for the short break session
-          seconds.value = sessions[0]!.time;
+          seconds.value = sessions[2]!.time;
 
           //we then increment the session tracker because the session is done
           sessionTracker.value++;
@@ -178,7 +178,7 @@ export const useTimerStore = defineStore('timer', () => {
 
       }
 
-      else { // if, instead, we are in the short break session and we still haven't gone beyond the numbere of sessions before  long break
+      else { // if, instead, we are in the short break session and we still haven't gone beyond the number of sessions before  long break
 
         //we switch back to the work session
         sessions[1]!.isActive = false;
