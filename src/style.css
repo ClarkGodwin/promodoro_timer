@@ -37,7 +37,7 @@
     --width-toast : clamp(7.5rem,6.019rem + 7.407vw,12.5rem);
     /*width of the toast in the Toast.vue component*/
 
-    --height-timer : clamp(21.875rem,20.023rem + 9.259vw,28.125rem);
+    --height-timer : clamp(15.625rem,11.921rem + 18.519vw,28.125rem);
     /*The fluid  height of timer*/
 
     --container-header : clamp(18.75rem,13.194rem + 27.778vw,37.5rem);
